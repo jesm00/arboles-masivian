@@ -1,8 +1,5 @@
 package com.masivian.prueba.arboles.red
 
-import com.fasterxml.jackson.databind.JsonMappingException
-import com.masivian.prueba.arboles.ArbolBinario
-import com.masivian.prueba.arboles.ArbolBinarioConId
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
