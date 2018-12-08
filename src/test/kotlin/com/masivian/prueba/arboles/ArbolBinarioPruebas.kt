@@ -144,4 +144,374 @@ class ArbolBinarioPruebas
             Assertions.assertTrue(arbol.hijoDerecho!!.hijoDerecho!!.esVacio)
         }
     }
+
+    @Nested
+    @DisplayName("darAncestroComunMasCercano")
+    inner class DarAncestroComunMasCercano
+    {
+        @Test
+        fun con_arbol_vacio_retorna_null()
+        {
+            val arbol = ArbolBinario.vacio<Int>()
+            Assertions.assertNull(arbol.darAncestroComunMasCercano(1, 2))
+        }
+
+        @Test
+        fun retorna_la_raiz_cuando_primer_nodo_esta_por_la_izquierda_y_el_otro_por_la_derecha()
+        {
+            val nodoRaiz = 1
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.nodo(
+                    nodoInicial,
+                    ArbolBinario.vacio(),
+                    ArbolBinario.vacio()
+                ),
+                ArbolBinario.nodo(
+                    nodoFinal,
+                    ArbolBinario.vacio(),
+                    ArbolBinario.vacio()
+                )
+            )
+            Assertions.assertEquals(nodoRaiz, arbol.darAncestroComunMasCercano(nodoInicial, nodoFinal))
+        }
+
+        @Test
+        fun retorna_la_raiz_cuando_primer_nodo_esta_por_la_derecha_y_el_otro_por_la_izquierda()
+        {
+            val nodoRaiz = 1
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.nodo(
+                    nodoFinal,
+                    ArbolBinario.vacio(),
+                    ArbolBinario.vacio()
+                ),
+                ArbolBinario.nodo(
+                    nodoInicial,
+                    ArbolBinario.vacio(),
+                    ArbolBinario.vacio()
+                )
+            )
+            Assertions.assertEquals(nodoRaiz, arbol.darAncestroComunMasCercano(nodoInicial, nodoFinal))
+        }
+
+        @Test
+        fun retorna_null_cuando_primer_nodo_no_existe()
+        {
+            val nodoRaiz = 1
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.nodo(
+                    nodoInicial,
+                    ArbolBinario.vacio(),
+                    ArbolBinario.vacio()
+                ),
+                ArbolBinario.nodo(
+                    nodoFinal,
+                    ArbolBinario.vacio(),
+                    ArbolBinario.vacio()
+                )
+            )
+            Assertions.assertNull(arbol.darAncestroComunMasCercano(4, nodoFinal))
+        }
+
+        @Test
+        fun retorna_null_cuando_segundo_nodo_no_existe()
+        {
+            val nodoRaiz = 1
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.nodo(
+                    nodoInicial,
+                    ArbolBinario.vacio(),
+                    ArbolBinario.vacio()
+                ),
+                ArbolBinario.nodo(
+                    nodoFinal,
+                    ArbolBinario.vacio(),
+                    ArbolBinario.vacio()
+                )
+            )
+            Assertions.assertNull(arbol.darAncestroComunMasCercano(nodoInicial, 4))
+        }
+
+        @Test
+        fun retorna_el_nodo_mas_bajo_posible_cuando_hay_mas_de_un_ancestro_comun_por_izquierda()
+        {
+            val nodoRaiz = 1
+            val nodoComun = 4
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.nodo(
+                    nodoComun,
+                    ArbolBinario.nodo(
+                        nodoInicial,
+                        ArbolBinario.vacio(),
+                        ArbolBinario.vacio()
+                    ),
+                    ArbolBinario.nodo(
+                        nodoFinal,
+                        ArbolBinario.vacio(),
+                        ArbolBinario.vacio()
+                    )
+                ),
+                ArbolBinario.vacio()
+            )
+            Assertions.assertEquals(nodoComun, arbol.darAncestroComunMasCercano(nodoInicial, nodoFinal))
+        }
+
+        @Test
+        fun retorna_el_nodo_mas_bajo_posible_cuando_hay_mas_de_un_ancestro_comun_por_derecha()
+        {
+            val nodoRaiz = 1
+            val nodoComun = 4
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.vacio(),
+                ArbolBinario.nodo(
+                    nodoComun,
+                    ArbolBinario.nodo(
+                        nodoInicial,
+                        ArbolBinario.vacio(),
+                        ArbolBinario.vacio()
+                    ),
+                    ArbolBinario.nodo(
+                        nodoFinal,
+                        ArbolBinario.vacio(),
+                        ArbolBinario.vacio()
+                    )
+                )
+            )
+            Assertions.assertEquals(nodoComun, arbol.darAncestroComunMasCercano(nodoInicial, nodoFinal))
+        }
+
+        @Test
+        fun retorna_inicial_cuando_inicial_es_padre_de_final_por_izquierda()
+        {
+            val nodoRaiz = 1
+            val nodoComun = 4
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.nodo(
+                    nodoComun,
+                    ArbolBinario.nodo(
+                        nodoInicial,
+                        ArbolBinario.nodo(
+                            nodoFinal,
+                            ArbolBinario.vacio(),
+                            ArbolBinario.vacio()
+                        ),
+                        ArbolBinario.vacio()
+                    ),
+                    ArbolBinario.vacio()
+                ),
+                ArbolBinario.vacio()
+            )
+            Assertions.assertEquals(nodoInicial, arbol.darAncestroComunMasCercano(nodoInicial, nodoFinal))
+        }
+
+        @Test
+        fun retorna_inicial_cuando_inicial_es_ancestro_de_final_por_izquierda()
+        {
+            val nodoRaiz = 1
+            val otroNodo = 4
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.nodo(
+                    nodoInicial,
+                    ArbolBinario.nodo(
+                        otroNodo,
+                        ArbolBinario.nodo(
+                            nodoFinal,
+                            ArbolBinario.vacio(),
+                            ArbolBinario.vacio()
+                        ),
+                        ArbolBinario.vacio()
+                    ),
+                    ArbolBinario.vacio()
+                ),
+                ArbolBinario.vacio()
+            )
+            Assertions.assertEquals(nodoInicial, arbol.darAncestroComunMasCercano(nodoInicial, nodoFinal))
+        }
+
+        @Test
+        fun retorna_inicial_cuando_inicial_es_padre_de_final_por_derecha()
+        {
+            val nodoRaiz = 1
+            val nodoComun = 4
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.vacio(),
+                ArbolBinario.nodo(
+                    nodoComun,
+                    ArbolBinario.vacio(),
+                    ArbolBinario.nodo(
+                        nodoInicial,
+                        ArbolBinario.vacio(),
+                        ArbolBinario.nodo(
+                            nodoFinal,
+                            ArbolBinario.vacio(),
+                            ArbolBinario.vacio()
+                        )
+                    )
+                )
+            )
+            Assertions.assertEquals(nodoInicial, arbol.darAncestroComunMasCercano(nodoInicial, nodoFinal))
+        }
+
+        @Test
+        fun retorna_inicial_cuando_inicial_es_ancestro_de_final_por_derecha()
+        {
+            val nodoRaiz = 1
+            val otroNodo = 4
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.vacio(),
+                ArbolBinario.nodo(
+                    nodoInicial,
+                    ArbolBinario.vacio(),
+                    ArbolBinario.nodo(
+                        otroNodo,
+                        ArbolBinario.vacio(),
+                        ArbolBinario.nodo(
+                            nodoFinal,
+                            ArbolBinario.vacio(),
+                            ArbolBinario.vacio()
+                        )
+                    )
+                )
+            )
+            Assertions.assertEquals(nodoInicial, arbol.darAncestroComunMasCercano(nodoInicial, nodoFinal))
+        }
+
+        @Test
+        fun retorna_final_cuando_final_es_padre_de_inicial_por_izquierda()
+        {
+            val nodoRaiz = 1
+            val nodoComun = 4
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.nodo(
+                    nodoComun,
+                    ArbolBinario.nodo(
+                        nodoFinal,
+                        ArbolBinario.nodo(
+                            nodoInicial,
+                            ArbolBinario.vacio(),
+                            ArbolBinario.vacio()
+                        ),
+                        ArbolBinario.vacio()
+                    ),
+                    ArbolBinario.vacio()
+                ),
+                ArbolBinario.vacio()
+            )
+            Assertions.assertEquals(nodoFinal, arbol.darAncestroComunMasCercano(nodoInicial, nodoFinal))
+        }
+
+        @Test
+        fun retorna_final_cuando_final_es_ancestro_de_inicial_por_izquierda()
+        {
+            val nodoRaiz = 1
+            val otroNodo = 4
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.nodo(
+                    nodoFinal,
+                    ArbolBinario.nodo(
+                        otroNodo,
+                        ArbolBinario.nodo(
+                            nodoInicial,
+                            ArbolBinario.vacio(),
+                            ArbolBinario.vacio()
+                        ),
+                        ArbolBinario.vacio()
+                    ),
+                    ArbolBinario.vacio()
+                ),
+                ArbolBinario.vacio()
+            )
+            Assertions.assertEquals(nodoFinal, arbol.darAncestroComunMasCercano(nodoInicial, nodoFinal))
+        }
+
+        @Test
+        fun retorna_final_cuando_final_es_padre_de_inicial_por_derecha()
+        {
+            val nodoRaiz = 1
+            val nodoComun = 4
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.vacio(),
+                ArbolBinario.nodo(
+                    nodoComun,
+                    ArbolBinario.vacio(),
+                    ArbolBinario.nodo(
+                        nodoFinal,
+                        ArbolBinario.vacio(),
+                        ArbolBinario.nodo(
+                            nodoInicial,
+                            ArbolBinario.vacio(),
+                            ArbolBinario.vacio()
+                        )
+                    )
+                )
+            )
+            Assertions.assertEquals(nodoFinal, arbol.darAncestroComunMasCercano(nodoInicial, nodoFinal))
+        }
+
+        @Test
+        fun retorna_final_cuando_final_es_ancestro_de_inicial_por_derecha()
+        {
+            val nodoRaiz = 1
+            val otroNodo = 4
+            val nodoInicial = 2
+            val nodoFinal = 3
+            val arbol = ArbolBinario.nodo(
+                nodoRaiz,
+                ArbolBinario.vacio(),
+                ArbolBinario.nodo(
+                    nodoFinal,
+                    ArbolBinario.vacio(),
+                    ArbolBinario.nodo(
+                        otroNodo,
+                        ArbolBinario.vacio(),
+                        ArbolBinario.nodo(
+                            nodoInicial,
+                            ArbolBinario.vacio(),
+                            ArbolBinario.vacio()
+                        )
+                    )
+                )
+            )
+            Assertions.assertEquals(nodoFinal, arbol.darAncestroComunMasCercano(nodoInicial, nodoFinal))
+        }
+    }
 }
