@@ -3,14 +3,8 @@ package com.masivian.prueba.arboles.red.recursos
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.masivian.prueba.arboles.dao.ErrorBD
 import com.masivian.prueba.arboles.dao.RepositorioArboles
-import com.masivian.prueba.arboles.red.ArbolBinarioConIdDTO
-import com.masivian.prueba.arboles.red.ArbolBinarioDTO
-import com.masivian.prueba.arboles.red.ErrorEnDAONoEsperado
-import com.masivian.prueba.arboles.red.ExcepcionRed
-import javax.ws.rs.Consumes
-import javax.ws.rs.POST
-import javax.ws.rs.Path
-import javax.ws.rs.Produces
+import com.masivian.prueba.arboles.red.*
+import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 
 @Path(RecursoArboles.RUTA)
@@ -26,6 +20,19 @@ interface RecursoArboles
     @POST
     @Throws(ExcepcionRed::class, JsonMappingException::class)
     fun crearArbol(arbolBinarioDTO: ArbolBinarioDTO): ArbolBinarioConIdDTO
+
+    @Path("{id}")
+    fun darRecursoArbolEspecifico(@PathParam("id") id: Long): RecursoArbol
+}
+
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+interface RecursoArbol
+{
+    val idArbol: Long
+
+    @Path(RecursoAncestroComunMasCercano.RUTA)
+    fun darRecursoAncestroComunMasCercano(): RecursoAncestroComunMasCercano
 }
 
 class RecursoArbolesConRepositorio(private val repositorioArboles: RepositorioArboles): RecursoArboles
@@ -42,4 +49,21 @@ class RecursoArbolesConRepositorio(private val repositorioArboles: RepositorioAr
         }
         return ArbolBinarioConIdDTO(arbolGuardadoConId)
     }
+
+    override fun darRecursoArbolEspecifico(id: Long): RecursoArbol
+    {
+        return RecursoArbolConRepositorio(id, repositorioArboles)
+    }
+}
+
+class RecursoArbolConRepositorio(
+    override val idArbol: Long,
+    private val repositorioArboles: RepositorioArboles
+): RecursoArbol
+{
+    override fun darRecursoAncestroComunMasCercano(): RecursoAncestroComunMasCercano
+    {
+        return RecursoAncestroComunMasCercanoConRepositorio(idArbol, repositorioArboles)
+    }
+
 }
