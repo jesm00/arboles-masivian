@@ -127,3 +127,49 @@ Propiedades:
     - Tipo: String
     - Nullable: Sí
     - Descripción: Mensaje de error para errores controlados
+
+## Servicios
+
+### Crear árbol
+- Descripción: Permite crear un árbol en el sistema y retorna el árbol creado con el id asignado
+- Ruta: /trees
+- Método: POST
+- Entradas:
+    - Body: Árbol a crear. Debe ser de tipo árbol
+    - Query: N/A
+    - Path: N/A
+    - Headers esperados:
+        - Content-Type: application/json
+        - Accept: application/json
+- Respuestas:
+    - Exitosa:
+        - Body: Árbol con id
+        - Código http: 200
+    - Error:
+        - Body: Error
+        - Código http: 500 o 400 dependiendo del error
+
+### Consultar ancestro común más cercano
+- Descripción: Permite consultar el ancestro común más cercano entre dos nodos dados
+- Ruta: /trees/{id_arbol}/lowest-common-ancestor/?initial-node={initial-node}&final-node={final-node}
+- Método: POST
+- Entradas:
+    - Body: N/A
+    - Query:
+        - initial-node: Uno de los nodos para los que se va a buscar el ancestro común más cercano. Debe ser un entero
+        - final-node: Uno de los nodos para los que se va a buscar el ancestro común más cercano. Debe ser un entero
+    - Path:
+        - id_arbol: Id del árbol sobre el que se va a buscar el ancestro común más cercano
+    - Headers esperados:
+        - Content-Type: application/json
+        - Accept: application/json
+- Respuestas:
+    - Exitosa:
+        - Body: Ancestro común más cercano
+        - Código http: 200
+    - Árbol no encontrado:
+        - Body: Error
+        - Código http: 500 o 400 dependiendo del error
+    - Error:
+        - Body: Error
+        - Código http: 500 o 400 dependiendo del error
