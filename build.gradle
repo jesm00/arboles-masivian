@@ -16,21 +16,26 @@ dependencies {
     implementation "com.fasterxml.jackson.module:jackson-module-afterburner:$versionJackson"
     implementation "com.fasterxml.jackson.module:jackson-module-paranamer:$versionJackson"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:$versionJackson"
+    implementation "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:$versionJackson"
+
 
     def versionJersey = '2.27'
     implementation "org.glassfish.jersey.core:jersey-server:$versionJersey"
-
-    def junit5_jupiter = '5.3.2'
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_jupiter"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5_jupiter"
-    testImplementation "org.junit.jupiter:junit-jupiter-params:$junit5_jupiter"
+    implementation "org.glassfish.jersey.inject:jersey-hk2:$versionJersey"
 
     def ormlite_version = "5.1"
     implementation "com.j256.ormlite:ormlite-jdbc:$ormlite_version"
     implementation "com.h2database:h2:1.4.197"
     implementation 'com.zaxxer:HikariCP:3.1.0'
+
+    def junit5_jupiter = '5.3.2'
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_jupiter"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5_jupiter"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junit5_jupiter"
     
+    testImplementation 'org.mockito:mockito-inline:2.23.4'
     testImplementation 'org.skyscreamer:jsonassert:1.5.0'
+    testImplementation "org.glassfish.jersey.containers:jersey-container-grizzly2-http:$versionJersey"
 }
 
 test {

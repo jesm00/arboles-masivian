@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.masivian.prueba.arboles.ArbolBinario
 
-internal data class ArbolBinarioDTO @JsonCreator constructor(
+data class ArbolBinarioDTO @JsonCreator constructor(
     @JsonProperty(NOMBRE_PROPIEDAD_NODO)
     @get:JsonProperty(NOMBRE_PROPIEDAD_NODO)
     val nodo: Int?,

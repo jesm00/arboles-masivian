@@ -1,9 +1,11 @@
 package com.masivian.prueba.arboles.dao
 
+import com.fasterxml.jackson.databind.JsonMappingException
 import com.j256.ormlite.dao.DaoManager
 import com.j256.ormlite.table.TableUtils
 import com.masivian.prueba.arboles.ArbolBinario
 import com.masivian.prueba.arboles.ArbolBinarioConId
+import java.sql.SQLException
 
 /*
 NOTA: Este repositorio usa los objetos DTO para persistir y recuperar los árboles como strings. Por lo tanto, si se
@@ -22,9 +24,20 @@ class RepositorioArbolesSQL(private val proveedorConexionesORMLite: ProveedorCon
 
     override fun crearArbol(arbolBinario: ArbolBinario<Int>): ArbolBinarioConId<Int>
     {
-        val arbolDao = ArbolBinarioDAO(arbolBinario)
-        daoArbol.create(arbolDao)
-        return arbolDao.aArbolBinarioConId()
+        try
+        {
+            val arbolDao = ArbolBinarioDAO(arbolBinario)
+            daoArbol.create(arbolDao)
+            return arbolDao.aArbolBinarioConId()
+        }
+        catch(e: SQLException)
+        {
+            throw ErrorDesconocidoBD("Unknow database error", e)
+        }
+        catch (e: JsonMappingException)
+        {
+            throw ErrorMapeoBD("Error mapping database entity", e)
+        }
     }
 
 
