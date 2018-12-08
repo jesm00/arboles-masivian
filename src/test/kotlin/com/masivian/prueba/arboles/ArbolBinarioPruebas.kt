@@ -20,45 +20,23 @@ class ArbolBinarioPruebas
         }
 
         @Test
-        fun asigna_id_nulo_cuando_no_se_da_valor()
-        {
-            val arbol = ArbolBinario.vacio<Int>()
-            Assertions.assertNull(arbol.id)
-        }
-
-        @Test
-        fun asigna_id_correcto_cuando_es_nulo()
-        {
-            val arbol = ArbolBinario.vacio<Int>(null)
-            Assertions.assertNull(arbol.id)
-        }
-
-        @Test
-        fun asigna_id_correcto_cuando_no_es_nulo()
-        {
-            val id = 987L
-            val arbol = ArbolBinario.vacio<Int>(id)
-            Assertions.assertEquals(id, arbol.id)
-        }
-
-        @Test
         fun asigna_nodo_nulo()
         {
-            val arbol = ArbolBinario.vacio<Int>(null)
+            val arbol = ArbolBinario.vacio<Int>()
             Assertions.assertNull(arbol.nodo)
         }
 
         @Test
         fun asigna_hijo_izquierdo_nulo()
         {
-            val arbol = ArbolBinario.vacio<Int>(null)
+            val arbol = ArbolBinario.vacio<Int>()
             Assertions.assertNull(arbol.hijoIzquierdo)
         }
 
         @Test
         fun asigna_hijo_derecho_nulo()
         {
-            val arbol = ArbolBinario.vacio<Int>(null)
+            val arbol = ArbolBinario.vacio<Int>()
             Assertions.assertNull(arbol.hijoIzquierdo)
         }
     }
@@ -79,45 +57,6 @@ class ArbolBinarioPruebas
             )
 
             Assertions.assertFalse(arbol.esVacio)
-        }
-
-        @Test
-        fun asigna_id_nulo_cuando_no_se_da_valor()
-        {
-            val valorNodo = 123
-            val arbol = ArbolBinario.nodo(
-                valorNodo,
-                ArbolBinario.vacio(),
-                ArbolBinario.vacio()
-            )
-            Assertions.assertNull(arbol.id)
-        }
-
-        @Test
-        fun asigna_id_correcto_cuando_es_nulo()
-        {
-            val valorNodo = 123
-            val arbol = ArbolBinario.nodo(
-                valorNodo,
-                ArbolBinario.vacio(),
-                ArbolBinario.vacio(),
-                null
-            )
-            Assertions.assertNull(arbol.id)
-        }
-
-        @Test
-        fun asigna_id_correcto_cuando_no_es_nulo()
-        {
-            val id = 987L
-            val valorNodo = 123
-            val arbol = ArbolBinario.nodo(
-                valorNodo,
-                ArbolBinario.vacio(),
-                ArbolBinario.vacio(),
-                id
-            )
-            Assertions.assertEquals(id, arbol.id)
         }
 
         @Test
