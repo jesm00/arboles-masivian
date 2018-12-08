@@ -34,13 +34,13 @@ class ArbolBinarioDTOPruebas
 
             Assertions.assertNotNull(arbol.izquierdo)
             Assertions.assertNull(arbol.izquierdo!!.nodo)
-            Assertions.assertNull(arbol.izquierdo!!.izquierdo)
-            Assertions.assertNull(arbol.izquierdo!!.derecho)
+            Assertions.assertNull(arbol.izquierdo.izquierdo)
+            Assertions.assertNull(arbol.izquierdo.derecho)
 
             Assertions.assertNotNull(arbol.derecho)
             Assertions.assertNull(arbol.derecho!!.nodo)
-            Assertions.assertNull(arbol.derecho!!.izquierdo)
-            Assertions.assertNull(arbol.derecho!!.derecho)
+            Assertions.assertNull(arbol.derecho.izquierdo)
+            Assertions.assertNull(arbol.derecho.derecho)
         }
 
         @Test
