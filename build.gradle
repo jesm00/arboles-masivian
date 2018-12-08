@@ -11,6 +11,32 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    def junit5_jupiter = '5.3.2'
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_jupiter"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5_jupiter"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junit5_jupiter"
+}
+
+test {
+    useJUnitPlatform()
+
+    filter {
+        includeTestsMatching('*Pruebas')
+    }
+
+    // Always run tests, even when nothing changed.
+    dependsOn 'cleanTest'
+
+    // Show test results.
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
+    reports {
+        junitXml.enabled = false
+        html.enabled = false
+    }
 }
 
 compileKotlin {
