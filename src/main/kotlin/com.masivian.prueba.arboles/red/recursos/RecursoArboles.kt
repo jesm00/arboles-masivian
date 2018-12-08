@@ -34,7 +34,7 @@ class RecursoArbolesConRepositorio(private val repositorioArboles: RepositorioAr
     {
         val arbolGuardadoConId = try
         {
-            repositorioArboles.crearArbol(arbolBinarioDTO.aArbolBinario())
+            repositorioArboles.crearArbolBinario(arbolBinarioDTO.aArbolBinario())
         }
         catch (e: ErrorBD)
         {

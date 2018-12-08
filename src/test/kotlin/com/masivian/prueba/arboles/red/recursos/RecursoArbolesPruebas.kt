@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider
 import com.masivian.prueba.arboles.ArbolBinario
 import com.masivian.prueba.arboles.ArbolBinarioConId
-import com.masivian.prueba.arboles.dao.ErrorBD
 import com.masivian.prueba.arboles.dao.ErrorDesconocidoBD
 import com.masivian.prueba.arboles.dao.ErrorMapeoBD
 import com.masivian.prueba.arboles.dao.RepositorioArboles
@@ -187,12 +186,12 @@ class RecursoArbolesPruebas
             {
                 Mockito.doReturn(arbolSalida)
                     .`when`(mockRepositorioArboles)
-                    .crearArbol(arbolEntrada)
+                    .crearArbolBinario(arbolEntrada)
 
                 val arbolDTORetornado = recursoArboles.crearArbol(arbolDTOEntrada)
 
                 Assertions.assertEquals(arbolDTOSalida, arbolDTORetornado)
-                Mockito.verify(mockRepositorioArboles, Mockito.times(1)).crearArbol(arbolEntrada)
+                Mockito.verify(mockRepositorioArboles, Mockito.times(1)).crearArbolBinario(arbolEntrada)
             }
 
             @Test
@@ -200,13 +199,13 @@ class RecursoArbolesPruebas
             {
                 Mockito.doThrow(ErrorDesconocidoBD("Prueba", null))
                     .`when`(mockRepositorioArboles)
-                    .crearArbol(arbolEntrada)
+                    .crearArbolBinario(arbolEntrada)
 
                 Assertions.assertThrows(ErrorEnDAONoEsperado::class.java){
                     recursoArboles.crearArbol(arbolDTOEntrada)
                 }
 
-                Mockito.verify(mockRepositorioArboles, Mockito.times(1)).crearArbol(arbolEntrada)
+                Mockito.verify(mockRepositorioArboles, Mockito.times(1)).crearArbolBinario(arbolEntrada)
             }
 
             @Test
@@ -214,13 +213,13 @@ class RecursoArbolesPruebas
             {
                 Mockito.doThrow(ErrorMapeoBD("Prueba", null))
                     .`when`(mockRepositorioArboles)
-                    .crearArbol(arbolEntrada)
+                    .crearArbolBinario(arbolEntrada)
 
                 Assertions.assertThrows(ErrorEnDAONoEsperado::class.java){
                     recursoArboles.crearArbol(arbolDTOEntrada)
                 }
 
-                Mockito.verify(mockRepositorioArboles, Mockito.times(1)).crearArbol(arbolEntrada)
+                Mockito.verify(mockRepositorioArboles, Mockito.times(1)).crearArbolBinario(arbolEntrada)
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.masivian.prueba.arboles.dao
 
 import com.fasterxml.jackson.databind.JsonMappingException
+import com.j256.ormlite.dao.Dao
 import com.j256.ormlite.dao.DaoManager
 import com.j256.ormlite.table.TableUtils
 import com.masivian.prueba.arboles.ArbolBinario
@@ -15,20 +16,37 @@ Para evitar ese problema podria valer la pena crear mappers y DTOs internos de e
  */
 class RepositorioArbolesSQL(private val proveedorConexionesORMLite: ProveedorConexionesORMLite): RepositorioArboles
 {
-    private val daoArbol = DaoManager.createDao(proveedorConexionesORMLite.fuenteConexiones, ArbolBinarioDAO::class.java)
+    private val daoArbol: Dao<ArbolBinarioDAO?, Long>
+            = DaoManager.createDao(proveedorConexionesORMLite.fuenteConexiones, ArbolBinarioDAO::class.java)
 
     init
     {
         TableUtils.createTableIfNotExists(daoArbol.connectionSource, daoArbol.dataClass)
     }
 
-    override fun crearArbol(arbolBinario: ArbolBinario<Int>): ArbolBinarioConId<Int>
+    override fun crearArbolBinario(arbolBinario: ArbolBinario<Int>): ArbolBinarioConId<Int>
     {
         try
         {
             val arbolDao = ArbolBinarioDAO(arbolBinario)
             daoArbol.create(arbolDao)
             return arbolDao.aArbolBinarioConId()
+        }
+        catch(e: SQLException)
+        {
+            throw ErrorDesconocidoBD("Unknow database error", e)
+        }
+        catch (e: JsonMappingException)
+        {
+            throw ErrorMapeoBD("Error mapping database entity", e)
+        }
+    }
+
+    override fun buscarArbolBinarioPorId(id: Long): ArbolBinarioConId<Int>?
+    {
+        try
+        {
+            return daoArbol.queryForId(id)?.aArbolBinarioConId()
         }
         catch(e: SQLException)
         {

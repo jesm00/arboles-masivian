@@ -6,7 +6,10 @@ import com.masivian.prueba.arboles.ArbolBinarioConId
 interface RepositorioArboles
 {
     @Throws(ErrorBD::class)
-    fun crearArbol(arbolBinario: ArbolBinario<Int>): ArbolBinarioConId<Int>
+    fun crearArbolBinario(arbolBinario: ArbolBinario<Int>): ArbolBinarioConId<Int>
+
+    @Throws(ErrorBD::class)
+    fun buscarArbolBinarioPorId(id: Long): ArbolBinarioConId<Int>?
 
     fun liberarRecursos()
 }
