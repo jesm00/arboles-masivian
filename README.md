@@ -23,30 +23,30 @@ Propiedades:
 
 Ejemplos:
 
-- Árbol vacío:
-    {}
-- Árbol vacío explicito:
-    {
-        "node": null,
-        "left": null,
-        "right": null
-    }
-- Árbol no vacío:
-    {
-        "node": 1,
-        "left":
+    - Árbol vacío:
+        {}
+    - Árbol vacío explicito:
         {
-            "node": 2,
-            "left": {},
-            "right": {}
-        },
-        "right":
-        {
-            "node": 3,
-            "left": {},
-            "right": {}
+            "node": null,
+            "left": null,
+            "right": null
         }
-    }
+    - Árbol no vacío:
+        {
+            "node": 1,
+            "left":
+            {
+                "node": 2,
+                "left": {},
+                "right": {}
+            },
+            "right":
+            {
+                "node": 3,
+                "left": {},
+                "right": {}
+            }
+        }
 
 ### Árbol con id:
 
@@ -54,17 +54,17 @@ Respresenta un árbol creado en el sistema con su id correspondiente.
 
 Propiedades:
 
-    - id:
-        - Tipo: Long
-        - Nullable: No
-        - Descripción: Id que identifica el árbol como recurso
+- id:
+    - Tipo: Long
+    - Nullable: No
+    - Descripción: Id que identifica el árbol como recurso
 
-    - tree:
-        - Tipo: Árbol
-        - Nullable: No
-        - Descripción: Árbol asociado
+- tree:
+    - Tipo: Árbol
+    - Nullable: No
+    - Descripción: Árbol asociado
 
-    Ejemplos:
+Ejemplos:
 
     - Árbol vacío:
         {
@@ -103,12 +103,12 @@ Respresenta un ancestro común más cercano entre dos nodos.
 
 Propiedades:
 
-    - lowest-common-ancestor:
-        - Tipo: Int
-        - Nullable: Sí
-        - Descripción: Ancestro común más cercano encontrado o null de no existir un ancestro común
+- lowest-common-ancestor:
+    - Tipo: Int
+    - Nullable: Sí
+    - Descripción: Ancestro común más cercano encontrado o null de no existir un ancestro común
 
-    Ejemplos:
+Ejemplos:
 
     - Ancestro encontrado:
         {
@@ -123,7 +123,7 @@ Propiedades:
 ### Error
 
 Propiedades:
-    - message
-        - Tipo: String
-        - Nullable: Sí
-        - Descripción: Mensaje de error para errores controlados
+- message
+    - Tipo: String
+    - Nullable: Sí
+    - Descripción: Mensaje de error para errores controlados
