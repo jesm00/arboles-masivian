@@ -2,6 +2,9 @@
 out/
 .idea
 
+# Aws
+output-sam.yaml
+
 # Compiled class file
 *.class
 

@@ -23,6 +23,8 @@ dependencies {
     implementation "org.glassfish.jersey.core:jersey-server:$versionJersey"
     implementation "org.glassfish.jersey.inject:jersey-hk2:$versionJersey"
 
+    implementation "com.amazonaws.serverless:aws-serverless-java-container-jersey:1.2"
+
     def ormlite_version = "5.1"
     implementation "com.j256.ormlite:ormlite-jdbc:$ormlite_version"
     implementation "com.h2database:h2:1.4.197"
@@ -58,6 +60,17 @@ test {
         html.enabled = false
     }
 }
+
+task buildZip(type: Zip) {
+    from compileJava
+    from compileKotlin
+    from processResources
+    into('lib') {
+        from configurations.compileClasspath
+    }
+}
+
+build.dependsOn buildZip
 
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
